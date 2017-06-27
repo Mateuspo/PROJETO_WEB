@@ -18,7 +18,7 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<rectangle>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="79" backcolor="#668FCC" uuid="b31e9572-76f1-4c60-a041-d1efaa457d3b"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="79" backcolor="#DB6E62" uuid="b31e9572-76f1-4c60-a041-d1efaa457d3b"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="79" uuid="823a0bb1-377f-4cd2-a94f-6856d16cc8ce"/>
