@@ -110,7 +110,6 @@
                                                              update=":formEdicao :formListagem"/>
                                         </div>
                                     </f:facet> 
-                                    
                                     <p:outputLabel value="ID"/>
                                     <p:inputText value="#{controllerProfessor.objeto.id}" size="5" readonly="true"/>
                         <p:outputLabel value="NOME" for="txtNome"/>
@@ -140,8 +139,6 @@
                                     size="12" mask="true" mindate="01/01/1910">
                                     <f:converter converterId="converterCalendar"/>
                        </p:calendar>
-                        
-                        
                         <p:outputLabel value="Especialidade" for="selectEstado" />
                         
                         <p:selectOneMenu value="#{controllerProfessor.objeto.especialidade}"
@@ -157,16 +154,9 @@
                             </div>
                         </p:tab>
                     </p:tabView>
-
-
-                    
                 </h:form>
                 <ui:include src="/templates/ajaxstatus.xhtml"/>
             </p:dialog>
-            
-            
-            
-            
         </ui:define>
     </ui:composition>       
 </html>
