@@ -24,10 +24,10 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="79" backcolor="#667CD1" uuid="d837abc6-4d2c-4e94-94bd-db0aabc11312"/>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#DB6E62" uuid="d837abc6-4d2c-4e94-94bd-db0aabc11312"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="79" backcolor="#8A7FDB" uuid="12a535ef-816e-4a40-aedf-3afae6bce110"/>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#F24444" uuid="12a535ef-816e-4a40-aedf-3afae6bce110"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="19"/>
 				</textElement>
