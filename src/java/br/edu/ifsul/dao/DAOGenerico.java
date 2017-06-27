@@ -19,7 +19,7 @@ public class DAOGenerico<T> {
     private String mensagem = "";
     private String ordem = "id";
     private String filtro = "";
-    private Integer maximoObjetos = 2;
+    private Integer maximoObjetos = 5;
     private Integer posicaoAtual = 0;
     private Integer totalObjetos = 0;
     private List<T> listaTodos;

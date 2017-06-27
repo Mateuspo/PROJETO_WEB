@@ -24,7 +24,7 @@ public class ControllerCurso implements Serializable{
     private CursoDAO<Curso> dao;
     private Curso objeto;
     private InstituicaoDAO<Instituicao> daoInstituicao;
-    private Boolean novoDado;
+    private Boolean novo;
     private Disciplina disciplina;
     private DisciplinaDAO<Disciplina> daoDisciplina;
     
@@ -42,15 +42,7 @@ public class ControllerCurso implements Serializable{
     
     public void adicionarDisciplina(){
         if(disciplina != null){
-//            if(!objeto.getListaDisciplinas().contains(disciplina)){
-//                objeto.getListaDisciplinas().add(disciplina);
-//                Util.mensagemInformacao("Disciplina adicionado com sucesso");
-//                
-//                System.out.println("Disciplina adicionada");
-//            }else{
-//                Util.mensagemErro("A disciplina já existe na lista de disciplinas");
-//            }
-            if (novoDado){
+            if (novo){
                 disciplina.setCurso(objeto);
                 System.out.println("Curso: "+disciplina.getCurso().getNome());
                 objeto.getListaDisciplinas().add(disciplina);
@@ -73,12 +65,12 @@ public class ControllerCurso implements Serializable{
      public void novaDisciplina(){
         disciplina = new Disciplina();
         System.out.println("nova disciplina instanciada");
-        novoDado = true;
+        novo = true;
     }
     
     public void alterarDisciplina(int index){
         disciplina = objeto.getListaDisciplinas().get(index);
-        novoDado = false;
+        novo = false;
     }
     
     public void removerDisciplina(int index){
@@ -162,11 +154,11 @@ public class ControllerCurso implements Serializable{
     }
 
     public Boolean getNovoDado() {
-        return novoDado;
+        return novo;
     }
 
-    public void setNovoDado(Boolean novoDado) {
-        this.novoDado = novoDado;
+    public void setNovoDado(Boolean novo) {
+        this.novo = novo;
     }
 
     public Disciplina getDisciplina() {

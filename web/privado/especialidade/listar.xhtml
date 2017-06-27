@@ -15,11 +15,7 @@
                                  actionListener="#{controllerEspecialidade.novo()}"                                 
                                  icon="ui-icon-plus"
                                  oncomplete="PF('dlg').show();"
-                                 update=":formEdicao"/>
-                
-                <!--<p:commandButton action="#{controllerEspecialidade.relatorio()}"
-                                 value="Imprimir" ajax="false"
-                                 onclick="this.form.target = '_blank';"/> -->               
+                                 update=":formEdicao"/>         
                 
                 <div align="center">
                     <p:panelGrid columns="11">
@@ -109,16 +105,9 @@
                             </div>
                         </p:tab>
                     </p:tabView>
-
-
-                    
                 </h:form>
                 <ui:include src="/templates/ajaxstatus.xhtml"/>
-            </p:dialog>
-            
-            
-            
-            
+            </p:dialog>            
         </ui:define>
     </ui:composition>       
 </html>
