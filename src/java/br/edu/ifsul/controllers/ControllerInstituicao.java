@@ -2,7 +2,7 @@ package br.edu.ifsul.controllers;
 
 import br.edu.ifsul.dao.InstituicaoDAO;
 import br.edu.ifsul.util.Util;
-import br.ifsul.edu.modelo.Instituicao;
+import br.edu.ifsul.modelo.Instituicao;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

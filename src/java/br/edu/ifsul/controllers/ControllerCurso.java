@@ -5,9 +5,9 @@ import br.edu.ifsul.dao.DisciplinaDAO;
 import br.edu.ifsul.dao.InstituicaoDAO;
 import br.edu.ifsul.util.Util;
 import br.edu.ifsul.util.UtilRelatorios;
-import br.ifsul.edu.modelo.Curso;
-import br.ifsul.edu.modelo.Disciplina;
-import br.ifsul.edu.modelo.Instituicao;
+import br.edu.ifsul.modelo.Curso;
+import br.edu.ifsul.modelo.Disciplina;
+import br.edu.ifsul.modelo.Instituicao;
 import java.io.Serializable;
 import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
@@ -36,8 +36,7 @@ public class ControllerCurso implements Serializable{
     
     public void relatorio(){
         HashMap parametros = new HashMap();
-        UtilRelatorios.imprimeRelatorio("relatorioCurso", parametros,
-                dao.getListaTodos());
+        UtilRelatorios.imprimeRelatorio("helpteste", parametros,dao.getListaTodos());
     }
     
     public void adicionarDisciplina(){

@@ -1,6 +1,6 @@
 package br.edu.ifsul.dao;
 
-import br.ifsul.edu.modelo.Aluno;
+import br.edu.ifsul.modelo.Aluno;
 import java.io.Serializable;
 
 /**

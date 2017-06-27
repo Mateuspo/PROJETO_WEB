@@ -2,7 +2,7 @@
 package br.edu.ifsul.converters;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.ifsul.edu.modelo.Especialidade;
+import br.edu.ifsul.modelo.Especialidade;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

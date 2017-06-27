@@ -3,7 +3,7 @@ package br.edu.ifsul.controllers;
 import br.edu.ifsul.dao.EspecialidadeDAO;
 import br.edu.ifsul.util.Util;
 import br.edu.ifsul.util.UtilRelatorios;
-import br.ifsul.edu.modelo.Especialidade;
+import br.edu.ifsul.modelo.Especialidade;
 import java.io.Serializable;
 import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
