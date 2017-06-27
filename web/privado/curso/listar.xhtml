@@ -8,6 +8,7 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
         <ui:define name="conteudo">
+            <p:messages/>
             <h:form id="formListagem">
                 <p:growl/>
                 <p:messages/>
@@ -25,7 +26,7 @@
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
                         <p:selectOneMenu id="ordem" value="#{controllerCurso.dao.ordem}">
-                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Id" itemValue="id"/>
                             <f:selectItem itemLabel="Nome" itemValue="nome"/>         
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>     
@@ -124,29 +125,28 @@
                                     </f:facet>
                                     
                                     
-                                    <p:outputLabel value="ID"/>
+                                    <p:outputLabel value="Id"/>
                                     <p:inputText value="#{controllerCurso.objeto.id}" size="10" readonly="true" />
-                        <p:outputLabel value="NOME" for="txtNome"/>
+                        <p:outputLabel value="Nome" for="txtNome"/>
                         <p:inputText value="#{controllerCurso.objeto.nome}" 
                                      size="40" id="txtNome"
                                      maxlength="40" placeholder="Obrigatório"/>
                         
-                        <p:outputLabel value="SIGLA" for="txtSigla"/>
+                        <p:outputLabel value="Sigla" for="txtSigla"/>
                         <p:inputText value="#{controllerCurso.objeto.sigla}" 
                                      size="20" id="txtSigla"
                                      maxlength="40" placeholder="Obrigatório"/>
                         
-                        <p:outputLabel value="DESCRIÇÃO" for="txtDescricao"/>
-                        <p:editor value="#{controllerCurso.objeto.descricao}" width="300"
-                                      height="180"
-                                      id="txtDescricao"
-                                      />
+                        <p:outputLabel value="Descrição" for="txtDescricao"/>
+                        <p:inputText value="#{controllerCurso.objeto.descricao}" 
+                                     size="60" id="txtDescricao"
+                                     maxlength="60" placeholder="Obrigatório"/>
                         
                         <p:outputLabel for="Ativo" value="Ativo" />
                         <p:selectBooleanCheckbox value="#{controllerCurso.objeto.ativo}"
                                                  id="Ativo"/>
                         
-                        <p:outputLabel value="INICIO" for="txtInicio"/>
+                        <p:outputLabel value="Data Inicio" for="txtInicio"/>
                         <p:calendar  
                             value="#{controllerCurso.objeto.inicioAtividades}"                                                                                 pattern="dd/MM/yyyy"
                             id="txtInicio" navigator="true"  mindate="01/01/10"
@@ -228,7 +228,7 @@
                         </f:facet>
                         
                         <p:outputLabel value="Id" for="txtId"/>
-                        <p:inputText id="txtId" value="#{controllerCurso.disciplina.id}" placeholder="Obrigatório" readonly="true"/>
+                        <p:inputText id="txtId" value="#{controllerCurso.disciplina.id}" readonly="true"/>
                         
                         <p:outputLabel value="Nome" for="txtNome"/>
                         <p:inputText id="txtNome" value="#{controllerCurso.disciplina.nome}"

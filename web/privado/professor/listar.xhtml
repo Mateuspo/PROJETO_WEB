@@ -8,6 +8,7 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
         <ui:define name="conteudo">
+            <p:messages/>
             <h:form id="formListagem">
                 <p:growl/>
                 <p:messages/>
@@ -20,7 +21,7 @@
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
                         <p:selectOneMenu id="ordem" value="#{controllerProfessor.dao.ordem}">
-                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Id" itemValue="id"/>
                             <f:selectItem itemLabel="Nome" itemValue="nome"/>         
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>     
@@ -110,14 +111,14 @@
                                                              update=":formEdicao :formListagem"/>
                                         </div>
                                     </f:facet> 
-                                    <p:outputLabel value="ID"/>
+                                    <p:outputLabel value="Id"/>
                                     <p:inputText value="#{controllerProfessor.objeto.id}" size="5" readonly="true"/>
-                        <p:outputLabel value="NOME" for="txtNome"/>
+                        <p:outputLabel value="Nome" for="txtNome"/>
                         <p:inputText value="#{controllerProfessor.objeto.nome}" 
                                      size="40" id="txtNome" maxlength="40" 
                                      placeholder="Obrigatório"/>
                         
-                        <p:outputLabel value="EMAIL" for="txtEmail"/>
+                        <p:outputLabel value="Email" for="txtEmail"/>
                         <p:inputText value="#{controllerProfessor.objeto.email}" 
                                      size="40" id="txtEmail" maxlength="40" 
                                      placeholder="Obrigatório"/>
@@ -132,7 +133,7 @@
                                      size="40" id="txtInteresse" maxlength="40" 
                                      placeholder="Obrigatório"/>
                         
-                        <p:outputLabel value="NASCIMENTO" for="txtNascimento"/>
+                        <p:outputLabel value="Data Nascimento" for="txtNascimento"/>
                         <p:calendar  
                             value="#{controllerProfessor.objeto.nascimento}"                                                                                 pattern="dd/MM/yyyy"
                                     id="txtNascimento" locale="pt_BR" navigator="true"

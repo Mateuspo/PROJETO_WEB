@@ -8,6 +8,7 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
         <ui:define name="conteudo">
+            <p:messages/>
             <h:form id="formListagem">
                 <p:growl/>
                 <p:messages/>
@@ -101,13 +102,13 @@
                                                              update=":formEdicao :formListagem"/>
                                         </div>
                                     </f:facet>
-                                    <p:outputLabel value="ID"/>
+                                    <p:outputLabel value="Id"/>
                                     <p:inputText value="#{controllerInstituicao.objeto.id}" size="10" readonly="true"/>
                                     <p:outputLabel value="Nome" for="txtNome"/>
                                     <p:inputText id="txtNome" value="#{controllerInstituicao.objeto.nome}"
                                                  size="40" maxlength="50" placeholder="Obrigatório"/>                                                                                       
                                     
-                                    <p:outputLabel value="Fundação" for="txtFundacao"/>
+                                    <p:outputLabel value="Data Fundação" for="txtFundacao"/>
                                     <p:calendar  
                                         value="#{controllerInstituicao.objeto.anoFundacao}"
                                         pattern="dd/MM/yyyy"  mindate="01/01/1910"

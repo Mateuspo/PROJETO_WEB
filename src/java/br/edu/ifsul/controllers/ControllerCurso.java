@@ -46,7 +46,7 @@ public class ControllerCurso implements Serializable{
                 System.out.println("Curso: "+disciplina.getCurso().getNome());
                 objeto.getListaDisciplinas().add(disciplina);
                 Util.mensagemInformacao("Disciplina adicionado com sucesso");
-            }else{
+            }/*else{
                 System.out.println("Curso: " +disciplina.getCurso());
                 System.out.println("Nome: " +disciplina.getNome());
                 System.out.println("Descricao: " +disciplina.getDescricao());
@@ -55,7 +55,7 @@ public class ControllerCurso implements Serializable{
                 objeto.getListaDisciplinas().remove(disciplina);
                 objeto.getListaDisciplinas().add(disciplina);
                 Util.mensagemInformacao("Disciplina atualizada com sucesso");
-            }
+            }*/
         }else{
             System.out.println("Caiu aqui");
         }

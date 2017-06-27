@@ -8,6 +8,7 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
         <ui:define name="conteudo">
+            <p:messages/>
             <h:form id="formListagem">
                 <p:growl/>
                 <p:messages/>
@@ -15,7 +16,7 @@
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
                         <p:selectOneMenu id="ordem" value="#{controllerDisciplina.dao.ordem}">
-                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Id" itemValue="id"/>
                             <f:selectItem itemLabel="Nome" itemValue="nome"/>         
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>     
@@ -85,7 +86,7 @@
                                                              update=":formEdicao :formListagem"/>
                                         </div>
                                     </f:facet>
-                                    <p:outputLabel value="ID"/>
+                                    <p:outputLabel value="Id"/>
                                     <p:inputText value="#{controllerDisciplina.objeto.id}" size="10" readonly="true"/>
                                     <p:outputLabel value="Nome" for="txtNome"/>
                                     <p:inputText id="txtNome" value="#{controllerDisciplina.objeto.nome}"
