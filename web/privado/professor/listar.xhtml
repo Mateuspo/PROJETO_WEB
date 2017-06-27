@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <p:growl/>
+                <p:messages/>
+                <p:commandButton value="Novo"
+                                 actionListener="#{controllerProfessor.novo()}"                                 
+                                 icon="ui-icon-plus"
+                                 oncomplete="PF('dlg').show();"
+                                 update=":formEdicao"/>
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem:"/>
+                        <p:selectOneMenu id="ordem" value="#{controllerProfessor.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>         
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>     
+                        <p:outputLabel value="Filtro:"/>
+                        <p:inputText value="#{controllerProfessor.dao.filtro}" size="30">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:outputLabel value="Máximo de objetos: "/>
+                        <p:inputText value="#{controllerProfessor.dao.maximoObjetos}" size="3">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Primeiro"
+                                         actionListener="#{controllerProfessor.dao.primeiro()}"
+                                         update="listagem"/>
+                        <p:commandButton value="Anterior"
+                                         actionListener="#{controllerProfessor.dao.anterior()}"
+                                         update="listagem"/>                        
+                        <p:commandButton value="Próximo"
+                                         actionListener="#{controllerProfessor.dao.proximo()}"
+                                         update="listagem"/>  
+                        <p:commandButton value="Último"
+                                         actionListener="#{controllerProfessor.dao.ultimo()}"
+                                         update="listagem"/>                        
+                    </p:panelGrid>
+                </div>
+                <p:dataTable value="#{controllerProfessor.dao.listaObjetos}"
+                             var="obj" id="listagem" >
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controllerProfessor.dao.mensagemNavegacao}"/>
+                    </f:facet>
+                    <p:column headerText="Id">
+                    <p:outputLabel value="#{obj.id}"/>
+                </p:column>
+                
+                <p:column headerText="Nome">
+                    <p:outputLabel value="#{obj.nome}"/>
+                </p:column>
+                
+                <p:column headerText="Email">
+                    <p:outputLabel value="#{obj.email}"/>
+                </p:column>
+                
+                <p:column headerText="Nascimento">
+                    <p:outputLabel value="#{obj.nascimento}">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:outputLabel>
+                </p:column>
+                
+                <p:column headerText="Titulação">
+                    <p:outputLabel value="#{obj.titulacao}"/>
+                </p:column>
+                
+                <p:column headerText="Interesses">
+                    <p:outputLabel value="#{obj.topicoInteresse}"/>
+                </p:column>
+
+                    <p:column headerText="Ações">
+                        <div align="center">
+                            <p:commandButton actionListener="#{controllerProfessor.editar(obj.id)}"
+                                             icon="ui-icon-pencil" title="Editar"
+                                             oncomplete="PF('dlg').show();" update=":formEdicao"/>
+                            <p:commandButton actionListener="#{controllerProfessor.remover(obj.id)}"
+                                             icon="ui-icon-trash" update="@form" title="Remover"
+                                             onclick="if (!confirm('Confirma a exclusão?'))
+                                                         return false"/>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog widgetVar="dlg" header="Edição" modal="true" resizable="false"
+                      position="center,top" width="600" height="480">
+                <h:form id="formEdicao">
+                    <p:growl id="growl"/>
+
+                    <p:tabView id="tab">
+                        <p:tab title="Dados Principais">
+                            <div align="center">
+                                <p:panelGrid columns="2">
+                                    <f:facet name="footer">
+                                        <div align="center">
+                                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                                             actionListener="#{controllerProfessor.salvar()}"
+                                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+                                                             update=":formEdicao :formListagem"/>
+                                        </div>
+                                    </f:facet> 
+                                    
+                                    <p:outputLabel value="ID"/>
+                                    <p:inputText value="#{controllerProfessor.objeto.id}" size="5" readonly="true"/>
+                        <p:outputLabel value="NOME" for="txtNome"/>
+                        <p:inputText value="#{controllerProfessor.objeto.nome}" 
+                                     size="40" id="txtNome" maxlength="40" 
+                                     placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="EMAIL" for="txtEmail"/>
+                        <p:inputText value="#{controllerProfessor.objeto.email}" 
+                                     size="40" id="txtEmail" maxlength="40" 
+                                     placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="Titulação" for="txtTitulacao"/>
+                        <p:inputText value="#{controllerProfessor.objeto.titulacao}" 
+                                     size="40" id="txtTitulacao" maxlength="40" 
+                                     placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="Interesse" for="txtInteresse"/>
+                        <p:inputText value="#{controllerProfessor.objeto.topicoInteresse}" 
+                                     size="40" id="txtInteresse" maxlength="40" 
+                                     placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="NASCIMENTO" for="txtNascimento"/>
+                        <p:calendar  
+                            value="#{controllerProfessor.objeto.nascimento}"                                                                                 pattern="dd/MM/yyyy"
+                                    id="txtNascimento" locale="pt_BR" navigator="true"
+                                    size="12" mask="true" mindate="01/01/1910">
+                                    <f:converter converterId="converterCalendar"/>
+                       </p:calendar>
+                        
+                        
+                        <p:outputLabel value="Especialidade" for="selectEstado" />
+                        
+                        <p:selectOneMenu value="#{controllerProfessor.objeto.especialidade}"
+                                         id="selectEstado">
+                            <f:converter converterId="converterEspecialidade"/>
+                            <f:selectItem noSelectionOption="true"
+                                          itemLabel="Selecione um registro"/>
+                            <f:selectItems value="#{controllerProfessor.daoEspecialidade.listaTodos}"
+                                           var="esp" itemLabel="#{esp.nome}"/>
+                        </p:selectOneMenu>
+                                    
+                                </p:panelGrid>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+
+
+                    
+                </h:form>
+                <ui:include src="/templates/ajaxstatus.xhtml"/>
+            </p:dialog>
+            
+            
+            
+            
+        </ui:define>
+    </ui:composition>       
+</html>

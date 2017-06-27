@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Sistema com JSF 2 e Primefaces da turma 5N1</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <p:growl/>
+                <p:messages/>
+                <p:commandButton value="Novo"
+                                 actionListener="#{controllerCurso.novo()}"                                 
+                                 icon="ui-icon-plus"
+                                 oncomplete="PF('dlg').show();"
+                                 update=":formEdicao"/>
+                
+                <p:commandButton action="#{controllerCurso.relatorio()}"
+                                 value="Imprimir" ajax="false"
+                                 onclick="this.form.target = '_blank';"/>                
+                
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem:"/>
+                        <p:selectOneMenu id="ordem" value="#{controllerCurso.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>         
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>     
+                        <p:outputLabel value="Filtro:"/>
+                        <p:inputText value="#{controllerCurso.dao.filtro}" size="30">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:outputLabel value="Máximo de objetos: "/>
+                        <p:inputText value="#{controllerCurso.dao.maximoObjetos}" size="3">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Primeiro"
+                                         actionListener="#{controllerCurso.dao.primeiro()}"
+                                         update="listagem"/>
+                        <p:commandButton value="Anterior"
+                                         actionListener="#{controllerCurso.dao.anterior()}"
+                                         update="listagem"/>                        
+                        <p:commandButton value="Próximo"
+                                         actionListener="#{controllerCurso.dao.proximo()}"
+                                         update="listagem"/>  
+                        <p:commandButton value="Último"
+                                         actionListener="#{controllerCurso.dao.ultimo()}"
+                                         update="listagem"/>                        
+                    </p:panelGrid>
+                </div>
+                <p:dataTable value="#{controllerCurso.dao.listaObjetos}"
+                             var="obj" id="listagem" >
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controllerCurso.dao.mensagemNavegacao}"/>
+                    </f:facet>
+                    
+                    
+                    <p:column headerText="Id">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Sigla">
+                        <p:outputLabel value="#{obj.sigla}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição">
+                        <p:outputLabel value="#{obj.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Status">
+                        <p:outputLabel value="#{obj.ativo ? 'Sim' : 'Não'}"/>
+                    </p:column>
+
+                    <p:column headerText="Inicio">
+                        <p:outputLabel value="#{obj.inicioAtividades}">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:outputLabel>
+                    </p:column>
+
+
+                    <p:column headerText="Ações">
+                        <div align="center">
+                            <p:commandButton actionListener="#{controllerCurso.editar(obj.id)}"
+                                             icon="ui-icon-pencil"                                             
+                                             title="Editar"
+                                             oncomplete="PF('dlg').show();"
+                                             update=":formEdicao"/>
+                            <p:commandButton actionListener="#{controllerCurso.remover(obj.id)}"
+                                             icon="ui-icon-trash" update="@form"
+                                             title="Remover"
+                                             onclick="if (!confirm('Confirma a exclusão?'))
+                                                         return false"/>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog widgetVar="dlg" header="Edição" modal="true" resizable="false"
+                      position="center,top" width="600" height="480">
+                <h:form id="formEdicao">
+                    <p:growl id="growl"/>
+
+                    <p:tabView id="tab">
+                        <p:tab title="Dados Principais">
+                            <div align="center">
+                                <p:panelGrid columns="2">
+                                    <f:facet name="footer">
+                                        <div align="center">
+                                            <p:commandButton value="Salvar"
+                                                             icon="ui-icon-disk"
+                                                             actionListener="#{controllerCurso.salvar()}"
+                                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+                                                             update=":formEdicao :formListagem"/>
+                                        </div>
+                                    </f:facet>
+                                    
+                                    
+                                    <p:outputLabel value="ID"/>
+                                    <p:inputText value="#{controllerCurso.objeto.id}" size="10" readonly="true" />
+                        <p:outputLabel value="NOME" for="txtNome"/>
+                        <p:inputText value="#{controllerCurso.objeto.nome}" 
+                                     size="40" id="txtNome"
+                                     maxlength="40" placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="SIGLA" for="txtSigla"/>
+                        <p:inputText value="#{controllerCurso.objeto.sigla}" 
+                                     size="20" id="txtSigla"
+                                     maxlength="40" placeholder="obrigatório"/>
+                        
+                        <p:outputLabel value="DESCRIÇÃO" for="txtDescricao"/>
+                        <p:editor value="#{controllerCurso.objeto.descricao}" width="300"
+                                      height="180"
+                                      id="txtDescricao"
+                                      />
+                        
+                        <p:outputLabel for="Ativo" value="Ativo" />
+                        <p:selectBooleanCheckbox value="#{controllerCurso.objeto.ativo}"
+                                                 id="Ativo"/>
+                        
+                        <p:outputLabel value="INICIO" for="txtInicio"/>
+                        <p:calendar  
+                            value="#{controllerCurso.objeto.inicioAtividades}"                                                                                 pattern="dd/MM/yyyy"
+                            id="txtInicio" navigator="true"  mindate="01/01/10"
+                                    locale="pt_BR" size="12" mask="true">
+                                    <f:converter converterId="converterCalendar"/>
+                       </p:calendar>
+                        
+                        <p:outputLabel value="Instituição" for="selectInstituicao" />
+                        
+                        <p:selectOneMenu value="#{controllerCurso.objeto.instituicao}"
+                                         id="selectInstituicao">
+                            <f:converter converterId="converterInstituicao"/>
+                            <f:selectItem noSelectionOption="true"
+                                          itemLabel="Selecione um registro"/>
+                            <f:selectItems value="#{controllerCurso.daoInstituicao.listaTodos}"
+                                           var="esp" itemLabel="#{esp.nome}"/>
+                        </p:selectOneMenu>                                                                                                
+                                    
+                                </p:panelGrid>
+                            </div>
+                        </p:tab>
+
+                        <p:tab title="Disciplinas">
+                            <p:dataTable value="#{controllerCurso.objeto.listaDisciplinas}"
+                                         var="dis" rowIndexVar="id_dis" id="listaDisciplinas">
+                                <f:facet name="header">
+                                        <p:commandButton value="Nova Disciplina"
+                                            actionListener="#{controllerCurso.novaDisciplina()}"
+                                             update=":formDisciplina"
+                                             icon="ui-icon-plus"
+                                             id="btnNovaDisciplina"
+                                             process="btnNovaDisciplina"
+                                             oncomplete="PF('dlgDisciplina').show();" />
+                                </f:facet>
+                                
+                                <p:column headerText="Disciplina">
+                                    <p:outputLabel value="#{dis.descricao}" />
+                                </p:column>
+                                
+                                <p:column headerText="Ações">
+                                    
+                                     <p:commandButton id="btnAlterarDisciplina"
+                                                         icon="ui-icon-pencil"
+                                                         actionListener="#{controllerCurso.alterarDisciplina(id_dis)}"
+                                                         update=":formDisciplina"
+                                                         process="btnAlterarDisciplina" 
+                                                         oncomplete="PF('dlgDisciplina').show();"
+                                                         />
+                                     
+                                    <p:commandButton id="btnRemoverDisciplina"
+                                                     actionListener="#{controllerCurso.removerDisciplina(id_dis)}"
+                                                     process="btnRemoverDisciplina"
+                                                     update="listaDisciplinas :formEdicao:growl"
+                                                     icon="ui-icon-trash" />
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>                    
+                </h:form>
+                <ui:include src="/templates/ajaxstatus.xhtml"/>
+            </p:dialog>
+            
+            <p:dialog header="Edição de Disciplina"
+                      widgetVar="dlgDisciplina"
+                      resizable="false" modal="true" >
+                <h:form id="formDisciplina">
+                    <p:growl />
+                    <p:panelGrid columns="2">
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                                 action="#{controllerCurso.adicionarDisciplina()}"
+                                                 update=":formEdicao:tab:listaDisciplinas"
+                                                 process=":formDisciplina btnSalvarDisciplina"
+                                                 id="btnSalvarDisciplina"
+                                                 oncomplete="if(!args.validationFailed) PF('dlgDisciplina').hide();"/>
+                            </div>
+                        </f:facet>
+                        
+                        <p:outputLabel value="Id" for="txtId"/>
+                        <p:inputText id="txtId" value="#{controllerCurso.disciplina.id}" placeholder="Obrigatório" readonly="true"/>
+                        
+                        <p:outputLabel value="Nome" for="txtNome"/>
+                        <p:inputText id="txtNome" value="#{controllerCurso.disciplina.nome}"
+                                         size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                        <p:outputLabel value="Descrição" for="txtDescricao"/>
+                        <p:inputText id="txtDescricao" value="#{controllerCurso.disciplina.descricao}"
+                                         size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                        <p:outputLabel value="Carga Horária" for="txtCargaHoraria"/>
+                        <p:inputText id="txtCargaHoraria" value="#{controllerCurso.disciplina.cargaHoraria}"
+                                         size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                        <p:outputLabel value="Conhecimentos" for="txtConhecimentosMinimos"/>
+                        <p:inputText id="txtConhecimentosMinimos" value="#{controllerCurso.disciplina.conhecimentosMinimos}"
+                                         size="50" maxlength="50" placeholder="Obrigatório"/>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+     
+            
+        </ui:define>
+    </ui:composition>       
+</html>
